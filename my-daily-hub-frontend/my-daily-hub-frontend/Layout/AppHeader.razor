@@ -1,0 +1,21 @@
+<header class="app-header">
+    <nav class="nav-tabs">
+        <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+        <NavLink href="/habits">Habits</NavLink>
+    </nav>
+
+    <button 
+        style="float: right; margin-left: auto;"
+        onclick="window.toggleTheme()">
+            Dark/Light
+        </button>
+</header>
+
+<script>
+    window.toggleTheme = () => {
+        const root = document.documentElement;
+        const current = root.getAttribute("data-theme") || "light";
+        const next = current === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+    }
+</script>
