@@ -1,0 +1,32 @@
+﻿@page "/habits"
+
+@using shared.Providers
+@inject IDateTimeProvider _dateTimeProvider
+
+<h1>Habits</h1>
+
+<div>
+    <h3>Hello there, good @timeOfDayGreeting</h3>
+    <p>The current time is @_dateTimeProvider.UtcNow().ToString("hh:mm")</p>
+</div>
+
+@code {
+    private string timeOfDayGreeting = "";
+
+    protected override void OnInitialized()
+    {
+        timeOfDayGreeting = GetTimeOfDayGreeting();
+    }
+
+    private string GetTimeOfDayGreeting()
+    {
+        var currentHour = _dateTimeProvider.UtcNow().Hour;
+
+        if (currentHour < 12)
+            return "morning";
+        else if (currentHour < 18)
+            return "afternoon";
+        else
+            return "evening";
+    }
+}
