@@ -7,15 +7,28 @@
 
 <div>
     <h3>Hello there, good @timeOfDayGreeting</h3>
-    <p>The current time is @_dateTimeProvider.UtcNow().ToString("hh:mm")</p>
+    <p>The current time is: @currentTime</p>
 </div>
 
 @code {
+    private const int TimerDelay = 1000;
+
     private string timeOfDayGreeting = "";
+    private string currentTime = "";
+
+    private Timer? timer;
 
     protected override void OnInitialized()
     {
         timeOfDayGreeting = GetTimeOfDayGreeting();
+        UpdateCurrentTime();
+
+        timer = new Timer(UpdateTime, null, 0, TimerDelay);
+    }
+
+    private void UpdateTime(object? state) {
+        UpdateCurrentTime();
+        InvokeAsync(StateHasChanged);
     }
 
     private string GetTimeOfDayGreeting()
@@ -28,5 +41,15 @@
             return "afternoon";
         else
             return "evening";
+    }
+
+    private void UpdateCurrentTime()
+    {
+        currentTime = _dateTimeProvider.UtcNow().ToString("HH:mm:ss");
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
     }
 }
