@@ -12,6 +12,7 @@
 
 @code {
     private const int TimerDelay = 1000;
+    private const string TwentyFourHourClockTimeFormat = "HH:mm:ss";
 
     private string timeOfDayGreeting = "";
     private string currentTime = "";
@@ -45,7 +46,7 @@
 
     private void UpdateCurrentTime()
     {
-        currentTime = _dateTimeProvider.UtcNow().ToString("HH:mm:ss");
+        currentTime = _dateTimeProvider.UtcNow().ToString(TwentyFourHourClockTimeFormat);
     }
 
     public void Dispose()
