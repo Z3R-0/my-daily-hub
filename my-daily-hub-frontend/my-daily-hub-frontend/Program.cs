@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using my_daily_hub_frontend;
+using my_daily_hub_frontend.Services;
 using shared.Providers;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -11,5 +12,8 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 // Shared
 builder.Services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
+// Services
+builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
 await builder.Build().RunAsync();
